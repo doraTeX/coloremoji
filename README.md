@@ -25,6 +25,7 @@ to compile a test document.
 </li>
 </ol>
 
+See [my blog](http://doratex.hatenablog.jp/entry/20140107/1389103370 "TeX Alchemist Online") for details.
 
 License
 ==========
