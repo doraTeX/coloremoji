@@ -1,0 +1,57 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{coloremoji}
+\RequirePackage{graphicx}
+
+\def\coloremojidir{}%% 絵文字画像を収録したディレクトリのパス
+
+\newif\if@coloremoji@commbinning
+\DeclareRobustCommand*{\coloremoji}[1]{\@coloremoji@commbinningfalse\@coloremoji#1\relax}
+\def\coloremoji@terminate{\relax}
+\edef\coloremoji@vs{\detokenize{FE0F}}
+\edef\coloremoji@commbinning@list{\detokenize{23,30,31,32,33,34,35,36,37,38,39,1F1E8,1F1E9,1F1EA,1F1EB,1F1EC,1F1EE,1F1EF,1F1F0,1F1F7,1F1FA}}
+
+\def\coloremoji@prefix{}
+
+\def\@coloremoji#1{%
+  \def\coloremoji@target{#1}%
+  \ifx\coloremoji@target\coloremoji@terminate
+    \let\coloremoji@next\relax
+  \else
+    \kchardef\@temp=`#1\relax
+    \expandafter\coloremoji@getcodepoint\meaning\@temp\relax
+    \ifx\coloremoji@currentcodepoint\coloremoji@vs\else
+      \if@coloremoji@commbinning
+        \coloremoji@output{\coloremoji@prefix\coloremoji@currentcodepoint}%
+        \def\coloremoji@prefix{}%
+        \@coloremoji@commbinningfalse
+      \else
+        \@for\@temp:=\coloremoji@commbinning@list\do{%
+          \ifx\@temp\coloremoji@currentcodepoint
+            \@coloremoji@commbinningtrue
+          \fi
+        }%
+        \if@coloremoji@commbinning
+          \edef\coloremoji@prefix{\coloremoji@currentcodepoint-}%
+        \else
+          \coloremoji@output{\coloremoji@currentcodepoint}%
+        \fi
+      \fi
+    \fi
+    \let\coloremoji@next\@coloremoji
+  \fi
+  \coloremoji@next
+}
+\def\coloremoji@getcodepoint#1"#2\relax{\def\coloremoji@currentcodepoint{#2}}
+
+\def\coloremoji@output#1{%
+  \def\coloremoji@image{\includegraphics[width=1zw,bb=0 0 64 64]{\coloremojidir#1.pdf}}%
+  　\nobreak\hspace{-1zw}%
+  \iftdir
+    \raisebox{-.5zw}{\rotatebox[origin=c]{90}{\coloremoji@image}}%
+  \else
+    \raisebox{-.12zw}{\coloremoji@image}%
+  \fi
+  \nobreak\hspace{-1zw}\nobreak　%全角スペース
+}
+
+\endinput
