@@ -27,6 +27,10 @@ to compile a test document.
 
 See [my blog](http://doratex.hatenablog.jp/entry/20140107/1389103370 "TeX Alchemist Online") for details.
 
+Acknowledgements
+========
+extract_emoji.rb is a branch of [tmm1's emoji-extractor.rb](https://github.com/tmm1/emoji-extractor "emoji-extractor").
+
 License
 ==========
 This package is licensed under the MIT license.
