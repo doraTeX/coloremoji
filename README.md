@@ -12,14 +12,18 @@ Requirements
 Usage
 =====
 
-1. Download ZIP and expand it.
-2. Run 
-> ./extract_emoji.rb
-to extract emoji images from Apple Color Emoji.ttf of your Mac. 
+<ol>
+<li>Download ZIP and expand it.</li>
+<li>Run 
+<pre><code>./extract_emoji.rb</code></pre>
+to extract emoji images from Apple Color Emoji.ttf of your Mac.  
 Then the directory "emoji_images" is generated, which contains a lot of emoji images.
-3. Run 
-> ptex2pdf -u -l coloremoji-test
+
+<li>Run 
+<pre><code>ptex2pdf -u -l coloremoji-test</pre></code>
 to compile a test document.
+</li>
+</ol>
 
 
 License
