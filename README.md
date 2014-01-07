@@ -1,7 +1,7 @@
 coloremoji
 ==========
 
-A LaTeX package for inputting / outputting Apple Color Emoji with upLaTeX
+A LaTeX package for inputting and outputting Apple Color Emoji with upLaTeX
 
 Requirements
 ===
