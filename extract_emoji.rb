@@ -45,6 +45,13 @@ def extract_png(input)
   ofp.close
   system("convert \"#{basename}.png\" \"#{basename}.pdf\"")
   FileUtils.rm("#{basename}.png")
+  printf "%03d: generating #{basename}.pdf\n", $n
+end
+
+system('which convert > /dev/null')
+if $? != 0
+  puts "ERROR: ImageMagick convert is required."
+  exit 1
 end
 
 FileUtils.mkdir_p("emoji_images")
@@ -53,9 +60,9 @@ ttf_data = ttf.read
 
 pos = 0
 while m = Regexp.new("\211PNG", nil, 'n').match(ttf_data[pos..-1])
+  break if $n >= $filenames.length
   raise "no PNG found" if !m
   pos += m.begin(0) + 1
   ttf.seek(pos-1)
-
   extract_png(ttf)
 end
