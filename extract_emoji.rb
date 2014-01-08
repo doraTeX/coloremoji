@@ -66,3 +66,5 @@ while m = Regexp.new("\211PNG", nil, 'n').match(ttf_data[pos..-1])
   ttf.seek(pos-1)
   extract_png(ttf)
 end
+
+exit 0
