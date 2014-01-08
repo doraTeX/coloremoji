@@ -20,6 +20,9 @@
     \ifx\coloremoji@target##\relax
       \expandafter\def\expandafter\coloremoji@target\expandafter{\string##}%
     \fi
+    \ifx\coloremoji@target\#\relax
+      \expandafter\def\expandafter\coloremoji@target\expandafter{\string##}%
+    \fi
     \kchardef\@temp=`#1\relax
     \expandafter\coloremoji@getcodepoint\meaning\@temp\relax
     \ifx\coloremoji@currentcodepoint\coloremoji@vsE\else
