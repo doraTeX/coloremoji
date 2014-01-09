@@ -2,6 +2,19 @@
 \ProvidesPackage{coloremoji}
 \RequirePackage{graphicx}
 
+\newif\if@coloremoji@hires
+\DeclareOption{hires}{\@coloremoji@hirestrue}
+
+\ProcessOptions\relax
+
+\if@coloremoji@hires
+  \def\coloremoji@bb{width=1zw,bb=0 0 11.338600 11.338600}
+  \def\coloremoji@subdir{hires}
+\else
+  \def\coloremoji@bb{width=1zw,bb=0 0 4.535430 4.535430}
+  \def\coloremoji@subdir{lowres}
+\fi
+
 \def\coloremojidir{}%% 絵文字画像を収録したディレクトリのパス
 
 \newif\if@coloremoji@commbinning
@@ -52,7 +65,7 @@
 \def\coloremoji@getcodepoint#1"#2\relax{\def\coloremoji@currentcodepoint{#2}}
 
 \def\coloremoji@output#1{%
-  \def\coloremoji@image{\includegraphics[width=1zw,bb=0 0 64 64]{\coloremojidir#1.pdf}}%
+  \def\coloremoji@image{\expandafter\includegraphics\expandafter[\coloremoji@bb]{\coloremojidir\coloremoji@subdir/#1.pdf}}%
   　\nobreak\hspace{-1zw}%
   \iftdir
     \raisebox{-.5zw}{\rotatebox[origin=c]{90}{\coloremoji@image}}%

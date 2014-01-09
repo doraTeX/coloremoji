@@ -1,7 +1,7 @@
 % ptex2pdf -u -l coloremoji-test
 \documentclass[uplatex]{jsarticle}
 \usepackage[dvipdfmx]{graphicx}
-\usepackage{coloremoji}
+\usepackage[hires]{coloremoji} %% [hires] を外すと低解像度の軽量版になる
 \renewcommand{\coloremojidir}{./emoji_images/}%% 絵文字画像を収録したディレクトリのパス（末尾にスラッシュ）
 
 \title{\coloremoji{😄} \TeX でカラー絵文字を出してみる \coloremoji{🍉}}

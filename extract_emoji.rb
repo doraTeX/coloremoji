@@ -22,6 +22,8 @@ def extract_chunk(input, output)
   return [type, data]
 end
 
+$prev_height = 0
+
 def extract_png(input)
   buf = StringIO.new
   hdr = input.read(8)
@@ -35,17 +37,29 @@ def extract_png(input)
     break if  chunk_type.nil? || chunk_type == 'IEND'
   end
   
-  return if height != 64
+  if height == 64
+    dir = "lowres"
+  elsif height == 160
+    dir = "hires"
+  else
+    return
+  end
+  
+  $n = 0 if $prev_height != height
+  $prev_height = height
 
-  buf.rewind
-  basename = "emoji_images/#{$filenames[$n]}"
+  return if $n >= $filenames.length
+
+  basename = "emoji_images/#{dir}/#{$filenames[$n]}"
   $n += 1
+  buf.rewind
   ofp = File.new("#{basename}.png","wb")
   ofp.write buf.read
   ofp.close
-  system("convert \"#{basename}.png\" \"#{basename}.pdf\"")
+  system("convert -density 400 \"#{basename}.png\" -quality 100 \"#{basename}.pdf\"")
   FileUtils.rm("#{basename}.png")
   printf "%03d: generating #{basename}.pdf\n", $n
+  
 end
 
 system('which convert > /dev/null')
@@ -54,13 +68,13 @@ if $? != 0
   exit 1
 end
 
-FileUtils.mkdir_p("emoji_images")
+FileUtils.mkdir_p("emoji_images/lowres")
+FileUtils.mkdir_p("emoji_images/hires")
 ttf = File.new("/System/Library/Fonts/Apple Color Emoji.ttf","rb")
 ttf_data = ttf.read
 
 pos = 0
 while m = Regexp.new("\211PNG", nil, 'n').match(ttf_data[pos..-1])
-  break if $n >= $filenames.length
   raise "no PNG found" if !m
   pos += m.begin(0) + 1
   ttf.seek(pos-1)
