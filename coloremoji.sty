@@ -3,28 +3,60 @@
 \RequirePackage{graphicx}
 
 \newif\if@coloremoji@hires
+\newif\if@coloremoji@twitter
 \DeclareOption{hires}{\@coloremoji@hirestrue}
+\DeclareOption{twitter}{\@coloremoji@twittertrue}
 
 \ProcessOptions\relax
 
-\if@coloremoji@hires
+\def\coloremoji@setmode@twitter{%
+  \def\coloremoji@bb{width=1zw,bb=0 0 38 38}
+  \def\coloremoji@subdir{twitter}
+}
+
+\def\coloremoji@setmode@hires{%
   \def\coloremoji@bb{width=1zw,bb=0 0 11.338600 11.338600}
   \def\coloremoji@subdir{hires}
-\else
+}
+
+\def\coloremoji@setmode@lowres{%
   \def\coloremoji@bb{width=1zw,bb=0 0 4.535430 4.535430}
   \def\coloremoji@subdir{lowres}
+}
+
+\if@coloremoji@twitter
+  \coloremoji@setmode@twitter
+\else
+  \if@coloremoji@hires
+    \coloremoji@setmode@hires
+  \else
+    \coloremoji@setmode@lowres
+  \fi
 \fi
 
-\def\coloremojidir{}%% 絵文字画像を収録したディレクトリのパス
+\def\coloremojidir{}%% path to the emoji directory
 
-\newif\if@coloremoji@commbinning
+\newif\if@coloremoji@combining
 \edef\coloremoji@vsE{\detokenize{FE0E}}
 \edef\coloremoji@vsF{\detokenize{FE0F}}
-\edef\coloremoji@commbinning@list{\detokenize{23,30,31,32,33,34,35,36,37,38,39,1F1E8,1F1E9,1F1EA,1F1EB,1F1EC,1F1EE,1F1EF,1F1F0,1F1F7,1F1FA}}
+\edef\coloremoji@combining@list{\detokenize{23,30,31,32,33,34,35,36,37,38,39,1F1E8,1F1E9,1F1EA,1F1EB,1F1EC,1F1EE,1F1EF,1F1F0,1F1F7,1F1FA}}
 
 \def\coloremoji@prefix{}
 
-\DeclareRobustCommand*{\coloremoji}[1]{\@coloremoji@commbinningfalse\@coloremoji#1\coloremoji@terminate}
+\def\coloremoji@option@twitter{twitter}
+\def\coloremoji@option@hires{hires}
+\def\coloremoji@option@lowres{lowres}
+
+\DeclareRobustCommand*{\coloremoji}[2][\relax]{%
+  \begingroup
+  \def\coloremoji@option{#1}%
+  \ifx\coloremoji@option\coloremoji@option@twitter\coloremoji@setmode@twitter\fi
+  \ifx\coloremoji@option\coloremoji@option@hires\coloremoji@setmode@hires\fi
+  \ifx\coloremoji@option\coloremoji@option@lowres\coloremoji@setmode@lowres\fi
+  \@coloremoji@combiningfalse\@coloremoji#2\coloremoji@terminate
+  \endgroup
+}
+
 \def\@coloremoji{\futurelet\coloremoji@target\@@coloremoji}
 \def\@@coloremoji#1{%
   \ifx\coloremoji@target\coloremoji@terminate
@@ -40,17 +72,17 @@
     \expandafter\coloremoji@getcodepoint\meaning\@temp\relax
     \ifx\coloremoji@currentcodepoint\coloremoji@vsE\else
       \ifx\coloremoji@currentcodepoint\coloremoji@vsF\else
-        \if@coloremoji@commbinning
+        \if@coloremoji@combining
           \coloremoji@output{\coloremoji@prefix\coloremoji@currentcodepoint}%
           \def\coloremoji@prefix{}%
-          \@coloremoji@commbinningfalse
+          \@coloremoji@combiningfalse
         \else
-          \@for\@temp:=\coloremoji@commbinning@list\do{%
+          \@for\@temp:=\coloremoji@combining@list\do{%
             \ifx\@temp\coloremoji@currentcodepoint
-              \@coloremoji@commbinningtrue
+              \@coloremoji@combiningtrue
             \fi
           }%
-          \if@coloremoji@commbinning
+          \if@coloremoji@combining
             \edef\coloremoji@prefix{\coloremoji@currentcodepoint-}%
           \else
             \coloremoji@output{\coloremoji@currentcodepoint}%
@@ -72,7 +104,7 @@
   \else
     \raisebox{-.12zw}{\coloremoji@image}%
   \fi
-  \nobreak\hspace{-1zw}\nobreak 　%全角スペース
+  \nobreak\hspace{-1zw}\nobreak 　% full-width space
 }
 
 \endinput

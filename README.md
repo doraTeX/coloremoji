@@ -5,22 +5,32 @@ A LaTeX package for inputting and outputting Apple Color Emoji (such as 😃👍
 
 Requirements
 ===
-* Mac OS X 10.7+ (10.9 Mavericks is recommended)
 * e-upTeX engine + dvipdfmx
-* ImageMagick convert
+* If you want to use Apple Color Emojis, the followings are also required:
+ * Mac OS X 10.7+ (10.9+ is recommended)
+ * ImageMagick convert
 
-Usage
+Installation and Usage
 =====
+
+## In the case of using Twitter emojis
+
+1. Download ZIP and expand it.
+2. Run
+<pre><code>ptex2pdf -u -l coloremoji-twitter-test</pre></code>
+to compile a test document.
+
+## In the case of using Apple Color Emojis
 
 <ol>
 <li>Download ZIP and expand it.</li>
 <li>Run 
 <pre><code>./extract_emoji.rb</code></pre>
 to extract emoji images from Apple Color Emoji.ttf of your Mac.  
-Then the directory "emoji_images" is generated, which contains a lot of emoji images.
+Then two directories named "hires" and "lowres" containing a lot of emoji images will be generated in "emoji_images" directory.
 
 <li>Run 
-<pre><code>ptex2pdf -u -l coloremoji-test</pre></code>
+<pre><code>ptex2pdf -u -l coloremoji-apple-test</pre></code>
 to compile a test document.
 </li>
 </ol>
