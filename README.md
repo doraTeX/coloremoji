@@ -1,26 +1,26 @@
 coloremoji
 ==========
 
-A LaTeX package for inputting and outputting Apple Color Emoji (such as 😃👍) with upLaTeX
+A LaTeX package for inputting and outputting Emojis (such as 😃👍) with upLaTeX
 
 Requirements
 ===
 * e-upTeX engine + dvipdfmx
-* If you want to use Apple Color Emojis, the followings are also required:
+* If you want to use Apple Color Emoji instead of Twitter Emoji, the followings are also required:
  * Mac OS X 10.7+ (10.9+ is recommended)
  * ImageMagick convert
 
 Installation and Usage
 =====
 
-## In the case of using Twitter emojis
+## In the case of using Twitter Emoji
 
 1. Download ZIP and expand it.
 2. Run
 <pre><code>ptex2pdf -u -l coloremoji-twitter-test</pre></code>
 to compile a test document.
 
-## In the case of using Apple Color Emojis
+## In the case of using Apple Color Emoji
 
 <ol>
 <li>Download ZIP and expand it.</li>
