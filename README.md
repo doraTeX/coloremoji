@@ -39,7 +39,8 @@ See [my blog](http://doratex.hatenablog.jp/entry/20140107/1389103370 "TeX Alchem
 
 Acknowledgments
 ========
-extract_emoji.rb is a branch of [tmm1's emoji-extractor.rb](https://github.com/tmm1/emoji-extractor "emoji-extractor").
+- extract_emoji.rb is a branch of [tmm1's emoji-extractor.rb](https://github.com/tmm1/emoji-extractor "emoji-extractor").
+- Twitter Emoji is a product of the [Twitter Emoji for Everyone repository](https://github.com/twitter/twemoji).
 
 License
 ==========
