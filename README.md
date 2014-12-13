@@ -1,7 +1,7 @@
 coloremoji
 ==========
 
-A LaTeX package for inputting and outputting Emojis (such as 😃👍) with upLaTeX
+A LaTeX package for inputting and outputting Emojis such as 😃👍 with upLaTeX
 
 Requirements
 ===
