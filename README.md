@@ -35,7 +35,7 @@ to compile a test document.
 </li>
 </ol>
 
-See [my blog](http://doratex.hatenablog.jp/entry/20140107/1389103370 "TeX Alchemist Online") for details.
+See [ZR-san's blog](http://d.hatena.ne.jp/zrbabbler/20150801/1438431729) and [my blog](http://doratex.hatenablog.jp/entry/20140107/1389103370 "TeX Alchemist Online") for details.
 
 Acknowledgments
 ========
